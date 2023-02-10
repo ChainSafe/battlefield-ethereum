@@ -18,11 +18,11 @@ import (
 	"github.com/google/go-cmp/cmp"
 	"github.com/spf13/cobra"
 	"github.com/streamingfast/battlefield-ethereum/cli"
+	"github.com/streamingfast/firehose-ethereum/codec"
+	"github.com/streamingfast/firehose-ethereum/types"
+	pbeth "github.com/streamingfast/firehose-ethereum/types/pb/sf/ethereum/type/v2"
 	"github.com/streamingfast/jsonpb"
 	"github.com/streamingfast/logging"
-	"github.com/streamingfast/sf-ethereum/codec"
-	"github.com/streamingfast/sf-ethereum/types"
-	pbeth "github.com/streamingfast/sf-ethereum/types/pb/sf/ethereum/type/v2"
 	"github.com/stretchr/testify/assert"
 	"go.uber.org/zap"
 )
@@ -201,6 +201,7 @@ func readActualBlocks(filePath string) []*pbeth.Block {
 				cli.Ensure(ok, `Read block is not a "pbeth.Block" but should have been`)
 
 				lastBlockRead = sanitizeBlock(block)
+				lastBlockRead.NormalizeInPlace()
 				blocks = append(blocks, lastBlockRead)
 			}
 		}
