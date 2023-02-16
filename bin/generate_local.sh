@@ -71,6 +71,7 @@ main() {
       --syncmode="full" \
       --port=30313 \
       --networkid=1515 \
+      --authrpc.port=9555 \
       --nodiscover $@ 1> $syncer_geth_firehose_log 2> $syncer_geth_log) &
     syncer_geth_pid=$!
 

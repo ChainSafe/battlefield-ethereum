@@ -41,6 +41,13 @@ contract Child {
         require(success, "should have succeed");
     }
 
+    function nestedEmptyDelegateForLowestGas(address grandchild) public {
+        (bool success, ) = grandchild.delegatecall(
+            abi.encodeWithSignature("emptyCallForLowestGas()")
+        );
+        require(success, "should have succeed");
+    }
+
     function nativeTransfer(address payable to) public payable {
         to.transfer(msg.value);
     }

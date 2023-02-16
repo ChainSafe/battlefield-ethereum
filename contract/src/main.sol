@@ -262,6 +262,13 @@ contract Main {
         require(success, "should have succeed");
     }
 
+    function deepNestedDelegateForLowestGas(address child, address grandChild) public {
+        (bool success, ) = child.delegatecall(
+            abi.encodeWithSignature("nestedEmptyDelegateForLowestGas(address)", grandChild)
+        );
+        require(success, "should have succeed");
+    }
+
     function deepNestedLowGas(address child, address grandChild) public {
         uint256 callGasLimit = 2500000;
 

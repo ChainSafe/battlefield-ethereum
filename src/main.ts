@@ -409,6 +409,21 @@ async function main() {
   )
 
   console.log()
+  console.log("Performing nested delegate call")
+
+  await runner.parallelize(
+    () =>
+      runner.okContractSend(
+        "gas: deep nested delegate call for lowest gas",
+        "main",
+        mainContract.methods.deepNestedDelegateForLowestGas(
+          childContractAddress,
+          grandChildContractAddress
+        )
+      )
+  )
+
+  console.log()
   console.log("Performing 'suicide' transactions")
 
   await runner.parallelize(
